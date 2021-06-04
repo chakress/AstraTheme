@@ -103,7 +103,7 @@ textarea:focus{
 </style>
 
 	<div id="datainsert">
-		<form method="POST" class="wpac-custom-login-form">
+		<form method="POST" class="wpac-custom-login-form" action="?page=add_data">
 				<label for="nm">Manuscript Number:</label>
 				<input type="text" name="nm" placeholder='IJID-D-20-00375'></input>
 			<br><br>
