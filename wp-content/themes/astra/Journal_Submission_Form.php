@@ -6,6 +6,10 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+global $wpdb, $current_user;
+get_currentuserinfo();
+$current_user=wp_get_current_user();
+$current_username = $current_user->user_login;
 
 get_header(); ?>
 
@@ -103,9 +107,9 @@ textarea:focus{
 </style>
 
 	<div id="datainsert">
-		<form method="POST" class="wpac-custom-login-form" action="?page=add_data">
-				<label for="nm">Manuscript Number:</label>
-				<input type="text" name="nm" placeholder='IJID-D-20-00375'></input>
+		<form method="POST" class="wpac-custom-login-form" enctype="multipart/form-data">
+				<label for="manu_nbr">Manuscript Number:</label>
+				<input type="text" name="manu_nbr" placeholder='IJID-D-20-00375'></input>
 			<br><br>
 				<label for="full_title">Full Title:</label>
 				<input type="text" name="full_title" size="100" placeholder='Please Enter Full Title'></input>
@@ -161,28 +165,68 @@ textarea:focus{
 			<br><br>
 				<label for="journal_file">Choose file to upload:</label>
 				<input class="custom-file-upload" type="file" id="journal_file" name="journal_filename">
-			<br><br>	
-				<input type="submit" value="Insert Record" name="insert">
 			<br><br>
 				<div class="btn-group">
-					<input type="submit" value="Insert Record" name="insert">
+					<input type="submit" value="Insert Record" name="jour_insert">
 					<input type="submit" value="Cancel" name="cancel">
 					<input type="submit" value="Clear Data" name="clear_data">
 				</div>
 			<br><br>
 		</form>
 		<?php 
-			if(isset($_POST['insert']))
+			if(isset($_POST['jour_insert']))
 			{
-				$n=$_POST['nm'];
-				$c=$_POST['class'];
-				$m=$_POST['marks'];
+				$a=$_POST['manu_nbr'];
+				$b=$_POST['full_title'];
+				$c=$_POST['article_type'];
+				$d=$_POST['section_category'];
+				$e=$_POST['funding_info'];
+				$f=$_POST['abstract'];
+				$g=$_POST['corr_author'];
+				$h=$_POST['corr_author_email'];
+				$i=$_POST['corr_author_sec_info'];
+				$j=$_POST['corr_author_institution'];
+				$k=$_POST['corr_author_sec_institution'];
+				$l=$_POST['first_author'];
+				$m=$_POST['first_author_sec_info'];
+				$n=$_POST['order_of_authors'];
+				$o=$_POST['order_of_authors_sec_info'];
+				$p=$_POST['author_comments'];
+				$q=$_POST['sugg_reviews'];
+				$r=$_POST['keywords'];
+				
+				$name=$_FILES['journal_filename']['name'];
+				$type=$_FILES['journal_filename']['type'];
+				$data =file_get_contents($_FILES['journal_filename']['tmp_name']);
+				
 				
 					
 					global $wpdb;
 					//$wpdb->insert("Table name", array());
-					$sql=$wpdb->insert("wp_student_marks",array("name"=>$n,"class"=>$c,"marks"=>$m));
-					
+					$sql=$wpdb->insert("wp_journal_sub_details",array(
+						"jou_manuscript_number"=>$a,
+						"jou_full_title"=>$b,
+						"jou_article_type"=>$c,
+						"jou_section_category"=>$d,
+						"jou_fund_info"=>$e,
+						"jou_abstract"=>$f,
+						"jou_corr_author"=>$g,
+						"jou_corr_author_email"=>$h,
+						"jou_corr_author_sec_info"=>$i,
+						"jou_corr_author_insti"=>$j,
+						"jou_corr_author_sec_insti"=>$k,
+						"jou_first_author"=>$l,
+						"jou_first_auth_sec_info"=>$m,
+						"jou_orders_of_authors"=>$n,
+						"jou_ord_of_auth_sec_info"=>$o,
+						"jou_auth_comments"=>$p,
+						"jou_sugg_reviews"=>$q,
+						"jou_journal_keywords"=>$r,
+						"jou_insert_id"=> $current_username,
+						"name"=>$name,
+						"mime"=>$type,
+						"data"=>$data,
+						));
 					if($sql==true)
 					{
 						echo"<script>alert('data inserted Successfully')</script>";
