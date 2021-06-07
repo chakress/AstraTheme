@@ -39,7 +39,7 @@ label{
    text-align: left;
 }
 
-input[type=text]{
+input[type=text], input:disabled{
   border: none !important;
   border-bottom: 2px solid #f39c12 !important;
   padding: 10px 10px 10px 20px !important;
@@ -109,11 +109,10 @@ textarea:focus{
 	<div id="datainsert">
 		<form method="POST" class="wpac-custom-login-form" enctype="multipart/form-data">
 				<label for="manu_nbr">Manuscript Number:</label>
-				<input type="text" name="manu_nbr" placeholder='IJID-D-20-00375'></input>
+				<input type="text" readonly="readonly" name="manu_nbr" placeholder='IJID-D-20-00375'></input>
 			<br><br>
 				<label for="full_title">Full Title:</label>
 				<input type="text" name="full_title" size="100" placeholder='Please Enter Full Title'></input>
-			<br><br>
 			<br><br>
 				<label for="article_type">Article Type:</label>
 				<input type="text" name="article_type" size="50" placeholder='Please Enter Article Type'></input>
@@ -127,19 +126,19 @@ textarea:focus{
 				<label for="abstract">Abstract:</label>
 				<textarea type="text" name="abstract" placeholder='Enter Abstract of the thesis' rows="10"></textarea>
 			<br><br>
-				<label for="corr_author">Corresponding Author:</label>
+				<label for="corr_author">Co-Author:</label>
 				<textarea type="text" name="corr_author" placeholder='Enter Author names separated by line' rows="4"></textarea>
 			<br><br>
-				<label for="corr_author_email">Corresponding Author Email:</label>
+				<label for="corr_author_email">Co-Author Email:</label>
 				<input type="text" name="corr_author_email" size="100" placeholder='Please Enter Author Email'></input>
 			<br><br>
-				<label for="corr_author_sec_info">Corresponding Author Secondary Information:</label>
+				<label for="corr_author_sec_info">Co-Author Secondary Information:</label>
 				<input type="text" name="corr_author_sec_info" size="100" placeholder='Please Enter Secondary Author Information'></input>
 			<br><br>
-				<label for="corr_author_institution">Corresponding Author Institution:</label>
+				<label for="corr_author_institution">Co-Author Institution:</label>
 				<input type="text" name="corr_author_institution" size="100" placeholder='Please Enter Authors Institution'></input>
 			<br><br>
-				<label for="corr_author_sec_institution">Corresponding Author's Secondary Institution:</label>
+				<label for="corr_author_sec_institution">Co-Author Secondary Institution:</label>
 				<input type="text" name="corr_author_sec_institution" size="100" placeholder='Please Enter Authors Secondary Institution'></input>
 			<br><br>
 				<label for="first_author">First Author:</label>
@@ -167,7 +166,7 @@ textarea:focus{
 				<input class="custom-file-upload" type="file" id="journal_file" name="journal_filename">
 			<br><br>
 				<div class="btn-group">
-					<input type="submit" value="Insert Record" name="jour_insert">
+					<input type="submit" value="Submit" name="jour_insert">
 					<input type="submit" value="Cancel" name="cancel">
 					<input type="submit" value="Clear Data" name="clear_data">
 				</div>
@@ -224,7 +223,7 @@ textarea:focus{
 						"jou_journal_keywords"=>$r,
 						"jou_insert_id"=> $current_username,
 						"name"=>$name,
-						"mime"=>$type,
+						"type"=>$type,
 						"data"=>$data,
 						));
 					if($sql==true)
